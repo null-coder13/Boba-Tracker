@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobaTrackerDataAccessLayer", "BobaTrackerClassLibrary\BobaTrackerDataAccessLayer.csproj", "{B18C645E-B9D8-4A2D-BD6E-F27DFB1B6ED8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobaTrackerClassLibrary", "BobaTrackerClassLibrary\BobaTrackerClassLibrary.csproj", "{B18C645E-B9D8-4A2D-BD6E-F27DFB1B6ED8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobaTrackerAPI", "BobaTrackerAPI\BobaTrackerAPI.csproj", "{6032FF40-D62A-4BD1-9BF9-241A987DEA0E}"
 EndProject
