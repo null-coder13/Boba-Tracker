@@ -16,13 +16,12 @@ namespace BobaTrackerClassLibrary
             context = new BobaTrackerDBContext();
         }
 
-        public bool AddEntry(DateTime dateTime, bool hasPooped, bool hasPeed)
+        public Entry AddEntry(DateTime dateTime, bool hasPooped, bool hasPeed)
         {
-            bool status;
-            
+            Entry entry;
             try
             {
-                Entry entry = new Entry()
+                entry = new Entry()
                 {
                     DateTimeId = dateTime,
                     HasPooped = hasPooped,
@@ -30,13 +29,13 @@ namespace BobaTrackerClassLibrary
                 };
                 context.Entries.Add(entry);
                 context.SaveChanges();
-                status = true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                status = false;
+                Console.WriteLine(e);
+                entry = null;
             }
-            return status;
+            return entry;
         }
 
         public Entry GetLastEntry()
@@ -44,13 +43,40 @@ namespace BobaTrackerClassLibrary
             Entry entry;
             try
             {
-                entry = context.Entries.OrderByDescending(e => e.DateTimeId).LastOrDefault();
+                entry = context.Entries.OrderByDescending(e => e.DateTimeId).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 entry = null;
             }
             return entry;
+        }
+
+        public bool DeleteLastEntry() 
+        {
+            bool status;
+            try 
+            {
+                Entry lastEntry = context.Entries.OrderByDescending(e => e.DateTimeId).FirstOrDefault();
+                if (lastEntry != null) 
+                {
+                    context.Entries.Remove(lastEntry);
+                    context.SaveChanges();
+                    status = true;
+                }
+                else 
+                {
+                    Console.WriteLine("Error: Entry does not exist");
+                    status = false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+            }
+            return status;
         }
     }
 }
