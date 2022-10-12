@@ -67,5 +67,21 @@ namespace BobaTrackerAPI.Controllers
             }
             return Json(status);
         }
+
+        [EnableCors("MyPolicy")]
+        [HttpGet]
+        public JsonResult GetLastPoo() 
+        {
+            DateTime time = new DateTime(1999, 1, 1);
+            try
+            {
+                time = entryRepo.GetLastPoo();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(time);
+        }
     }
 }
