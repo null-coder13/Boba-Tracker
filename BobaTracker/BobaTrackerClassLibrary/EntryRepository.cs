@@ -78,5 +78,28 @@ namespace BobaTrackerClassLibrary
             }
             return status;
         }
+
+        public DateTime GetLastPoo() 
+        {
+            DateTime time = new DateTime(1991, 1, 1);
+            try
+            {
+                List<Entry> entryList = context.Entries.OrderByDescending(e => e.DateTimeId).ToList();
+                foreach(var entry in entryList)
+                {
+                  if (entry.HasPooped == true)
+                  {
+                    time = entry.DateTimeId;
+                    break;
+                  }
+                }
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine(e);
+            }
+            return time;
+        }
+
     }
 }
