@@ -79,9 +79,8 @@ namespace BobaTrackerClassLibrary
             return status;
         }
 
-        public DateTime GetLastPoo() 
+        public DateTime? GetLastPoo() 
         {
-            DateTime time = new DateTime(1991, 1, 1);
             try
             {
                 List<Entry> entryList = context.Entries.OrderByDescending(e => e.DateTimeId).ToList();
@@ -89,8 +88,7 @@ namespace BobaTrackerClassLibrary
                 {
                   if (entry.HasPooped == true)
                   {
-                    time = entry.DateTimeId;
-                    break;
+                    return entry.DateTimeId;
                   }
                 }
             }
@@ -98,7 +96,25 @@ namespace BobaTrackerClassLibrary
             {
                 Console.WriteLine(e);
             }
-            return time;
+            return null;
+        }
+
+        public DateTime? GetLastPee()
+        {
+            DateTime time;
+            try 
+            {
+                time = context.Entries.OrderByDescending(e => e.DateTimeId).FirstOrDefault(e => e.HasPeed == true).DateTimeId;
+                if (DateTime.Compare(time, new DateTime()) != 0)
+                {
+                    return time;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return null;
         }
 
     }

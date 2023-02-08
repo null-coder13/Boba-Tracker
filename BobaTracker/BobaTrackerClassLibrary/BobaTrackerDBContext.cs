@@ -23,7 +23,6 @@ namespace BobaTrackerDataAccessLayer
             {
                 optionsBuilder.UseSqlite(@connectionString);
             }
-            //optionsBuilder.UseSqlite(@"C:\Temp\Demo.db");
         }
         
     }

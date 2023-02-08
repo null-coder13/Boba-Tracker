@@ -52,11 +52,27 @@ namespace BobaTrackerAPI.Controllers
         }
 
         [EnableCors("MyPolicy")]
+        [HttpPost]
+        public JsonResult AddCustomEntry(DateTime time, bool hasPooped, bool hasPeed)
+        {
+            Entry entry;
+            try
+            {
+                entry = entryRepo.AddEntry(time, hasPooped, hasPeed);
+            }
+            catch (System.Exception)
+            {
+                entry = null;
+            }
+            return Json(entry);
+        }
+
+        [EnableCors("MyPolicy")]
         [HttpDelete]
         public JsonResult DeleteLastEntry()
         {
             bool status;
-            try 
+            try
             {
                 status = entryRepo.DeleteLastEntry();
             }
@@ -70,18 +86,41 @@ namespace BobaTrackerAPI.Controllers
 
         [EnableCors("MyPolicy")]
         [HttpGet]
-        public JsonResult GetLastPoo() 
+        public JsonResult GetLastPoo()
         {
-            DateTime time = new DateTime(1999, 1, 1);
             try
             {
-                time = entryRepo.GetLastPoo();
+                var time = entryRepo.GetLastPoo();
+                if (time != null) 
+                {
+                    return Json(time);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            return Json(time);
+            return Json("NA");
+        }
+
+
+        [EnableCors("MyPolicy")]
+        [HttpGet]
+        public JsonResult GetLastPee()
+        {
+            try
+            {
+                var time = entryRepo.GetLastPee();
+                if (time != null) 
+                {
+                    return Json(time);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json("NA");
         }
     }
 }
