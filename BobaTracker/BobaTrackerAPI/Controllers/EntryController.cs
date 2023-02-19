@@ -1,8 +1,8 @@
 ﻿using BobaTrackerClassLibrary;
 using BobaTrackerClassLibrary.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using System;
 
 namespace BobaTrackerAPI.Controllers
@@ -37,12 +37,12 @@ namespace BobaTrackerAPI.Controllers
 
         [EnableCors("MyPolicy")]
         [HttpPost]
-        public JsonResult AddEntry(bool hasPooped, bool hasPeed)
+        public async Task<JsonResult> AddEntry(bool hasPooped, bool hasPeed)
         {
             Entry entry;
             try
             {
-                entry = entryRepo.AddEntry(DateTime.Now, hasPooped, hasPeed);
+                entry = await entryRepo.AddEntry(DateTime.Now, hasPooped, hasPeed);
             }
             catch (System.Exception)
             {
@@ -53,12 +53,12 @@ namespace BobaTrackerAPI.Controllers
 
         [EnableCors("MyPolicy")]
         [HttpPost]
-        public JsonResult AddCustomEntry(DateTime time, bool hasPooped, bool hasPeed)
+        public async Task<JsonResult> AddCustomEntry(DateTime time, bool hasPooped, bool hasPeed)
         {
             Entry entry;
             try
             {
-                entry = entryRepo.AddEntry(time, hasPooped, hasPeed);
+                entry = await entryRepo.AddEntry(time, hasPooped, hasPeed);
             }
             catch (System.Exception)
             {
@@ -69,12 +69,12 @@ namespace BobaTrackerAPI.Controllers
 
         [EnableCors("MyPolicy")]
         [HttpDelete]
-        public JsonResult DeleteLastEntry()
+        public async Task<JsonResult> DeleteLastEntry()
         {
             bool status;
             try
             {
-                status = entryRepo.DeleteLastEntry();
+                status = await entryRepo.DeleteLastEntry();
             }
             catch (Exception e)
             {

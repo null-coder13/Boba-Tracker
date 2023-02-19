@@ -1,7 +1,7 @@
 ﻿using BobaTrackerDataAccessLayer;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using BobaTrackerClassLibrary.Models;
 using System.Linq;
 
@@ -9,14 +9,14 @@ namespace BobaTrackerClassLibrary
 {
     public class EntryRepository
     {
-        BobaTrackerDBContext context;
+        public BobaTrackerDBContext context;
 
         public EntryRepository()
         {
             context = new BobaTrackerDBContext();
         }
 
-        public Entry AddEntry(DateTime dateTime, bool hasPooped, bool hasPeed)
+        public async Task<Entry> AddEntry(DateTime dateTime, bool hasPooped, bool hasPeed)
         {
             Entry entry;
             try
@@ -27,8 +27,8 @@ namespace BobaTrackerClassLibrary
                     HasPooped = hasPooped,
                     HasPeed = hasPeed
                 };
-                context.Entries.Add(entry);
-                context.SaveChanges();
+                await context.Entries.AddAsync(entry);
+                await context.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace BobaTrackerClassLibrary
             return entry;
         }
 
-        public bool DeleteLastEntry() 
+        public async Task<bool> DeleteLastEntry() 
         {
             bool status;
             try 
@@ -62,7 +62,7 @@ namespace BobaTrackerClassLibrary
                 if (lastEntry != null) 
                 {
                     context.Entries.Remove(lastEntry);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     status = true;
                 }
                 else 
