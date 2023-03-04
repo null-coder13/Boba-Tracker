@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace BobaTrackerClassLibrary.Migrations
 {
     [DbContext(typeof(BobaTrackerDBContext))]
@@ -14,20 +16,25 @@ namespace BobaTrackerClassLibrary.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0");
+                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("BobaTrackerClassLibrary.Models.Entry", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateTimeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("hasPeed")
-                        .HasColumnType("INTEGER");
+                    b.Property<bool>("HasPeed")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("hasPooped")
-                        .HasColumnType("INTEGER");
+                    b.Property<bool>("HasPooped")
+                        .HasColumnType("tinyint(1)");
 
-                    b.HasKey("DateTimeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Entries");
                 });
