@@ -1,6 +1,5 @@
 ﻿using BobaTrackerClassLibrary;
 using BobaTrackerClassLibrary.Models;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
@@ -18,7 +17,6 @@ namespace BobaTrackerAPI.Controllers
             entryRepo = new EntryRepository();
         }
 
-        [EnableCors("MyPolicy")]
         [HttpGet]
         public JsonResult GetLastEntry()
         {
@@ -35,7 +33,6 @@ namespace BobaTrackerAPI.Controllers
             return Json(entry);
         }
 
-        [EnableCors("MyPolicy")]
         [HttpPost]
         public async Task<JsonResult> AddEntry(bool hasPooped, bool hasPeed)
         {
@@ -51,7 +48,6 @@ namespace BobaTrackerAPI.Controllers
             return Json(entry);
         }
 
-        [EnableCors("MyPolicy")]
         [HttpPost]
         public async Task<JsonResult> AddCustomEntry(DateTime time, bool hasPooped, bool hasPeed)
         {
@@ -67,7 +63,6 @@ namespace BobaTrackerAPI.Controllers
             return Json(entry);
         }
 
-        [EnableCors("MyPolicy")]
         [HttpDelete]
         public async Task<JsonResult> DeleteLastEntry()
         {
@@ -84,7 +79,6 @@ namespace BobaTrackerAPI.Controllers
             return Json(status);
         }
 
-        [EnableCors("MyPolicy")]
         [HttpGet]
         public JsonResult GetLastPoo()
         {
@@ -104,7 +98,6 @@ namespace BobaTrackerAPI.Controllers
         }
 
 
-        [EnableCors("MyPolicy")]
         [HttpGet]
         public JsonResult GetLastPee()
         {
