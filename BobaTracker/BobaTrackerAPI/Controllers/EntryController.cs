@@ -25,7 +25,7 @@ namespace BobaTrackerAPI.Controllers
             {
                 entry = entryRepo.GetLastEntry();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 entry = null;
             }
@@ -41,7 +41,7 @@ namespace BobaTrackerAPI.Controllers
             {
                 entry = await entryRepo.AddEntry(DateTime.Now, hasPooped, hasPeed);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 entry = null;
             }
@@ -56,7 +56,7 @@ namespace BobaTrackerAPI.Controllers
             {
                 entry = await entryRepo.AddEntry(time, hasPooped, hasPeed);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 entry = null;
             }
